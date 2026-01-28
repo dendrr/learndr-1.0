@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: learndr
-  datasource:
-    url: jdbc:postgresql://localhost:55432/learndrdb
-    username: postgres
-    password: postgres
