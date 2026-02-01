@@ -1,0 +1,13 @@
+com.learndr.learndr
+  app/                 // точка сборки приложения (конфиги, wiring)
+  shared/              // общие штуки (ошибки, time, utils — по минимуму)
+
+  vocabulary/
+    api/               // controllers + request/response DTO
+    app/               // use-cases / services (Application layer)
+    domain/            // сущности/правила домена
+    infra/             // JPA репозитории, мапперы, конфиг БД
+
+Для templates/static — оставляешь как есть:
+  resources/templates (thymeleaf)
+  resources/static (css/js/img)
