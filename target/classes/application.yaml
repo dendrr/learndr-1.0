@@ -5,3 +5,11 @@ spring:
     url: jdbc:postgresql://localhost:55432/learndrdb
     username: postgres
     password: postgres
+
+server:
+  servlet:
+    session:
+      tracking-modes:
+      - cookie
+      cookie:
+        http-only: true

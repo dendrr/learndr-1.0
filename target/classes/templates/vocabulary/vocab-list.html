@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vocabulary</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+  <!-- insert nav panel -->
+  <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+  <div class="content">
+    <div class="vocab-header">
+      <h1>Vocabulary</h1>
+      <button class="btn-add-word" onclick="openModal()">+ Add New Word</button>
+    </div>
+
+    <!-- Modal Popup -->
+    <div id="addWordModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Add New Word</h2>
+        <form id="addWordForm" method="post">
+          <div class="form-group">
+            <label for="word">Word:</label>
+            <input type="text" id="word" name="word" required>
+          </div>
+          <div class="form-group">
+            <label for="meaning">Meaning:</label>
+            <input type="text" id="meaning" name="meaning" required>
+          </div>
+          <div class="form-group">
+            <label for="context">Сontext Sentence:</label>
+            <input type="text" id="context" name="context">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Add Word</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("addWordModal").style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("addWordModal").style.display = "none";
+    }
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+      const modal = document.getElementById("addWordModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+
+    // send form with JSON 
+    document.getElementById("addWordForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        word: document.getElementById("word").value,
+        meaning: document.getElementById("meaning").value,
+        context: document.getElementById("context").value,
+      }
+
+      const response = await fetch("api/words", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        e.target.reset();
+        closeModal();
+      }
+      else {
+        const error = await response.text();
+        console.error(error);
+      }
+    })
+  </script>
+</body>
+
+</html>

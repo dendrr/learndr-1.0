@@ -3,11 +3,42 @@ com.learndr.learndr
   shared/              // общие штуки (ошибки, time, utils — по минимуму)
 
   vocabulary/
-    api/               // controllers + request/response DTO
-    app/               // use-cases / services (Application layer)
-    domain/            // сущности/правила домена
-    infra/             // JPA репозитории, мапперы, конфиг БД
+(controller)    api/               // controllers + request/response DTO / adapters / inbound
+(service)    app/               // use-cases / services (Application layer) DTO
+(repository, entity)    domain/            // сущности/правила домена | DAO
+(entity)    infra/             // JPA репозитории, мапперы, конфиг БД | ORM
+
+    api/ — входной адаптер: REST контроллеры, DTO, маппинг HTTP → use case.
+    app/ — use cases (сценарии): “AddWord”, “ReviewWord”, “GetNextTrainingCard” и т.п.
+        Оркестрация: вызывает домен + порты.
+    domain/ — ядро: сущности домена, value objects, доменные правила, интерфейсы портов
+        В идеале здесь минимум Spring/JPA.
+    infra/ — реализация портов: JPA/SQL репозитории, внешние API, файловая система и т.д.
+
+
 
 Для templates/static — оставляешь как есть:
   resources/templates (thymeleaf)
   resources/static (css/js/img)
+
+--------------------------------------------
+
+В Clean / Hexagonal (важно для тебя)
+
+HTTP Request
+   ↓
+DTO (input)
+   ↓
+Application Service (use case)
+   ↓
+Domain Entity
+   ↓
+DAO / Repository (interface)
+   ↓
+Infrastructure (JPA, SQL)
+
+
+DTO — форма данных для внешнего мира
+Domain Entity — модель предметной области
+DAO/Repository — контракт доступа к данным
+JPA Entity — техническая реализация в infrastructure
