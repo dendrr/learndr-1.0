@@ -1,7 +1,7 @@
 package com.learndr.learndr.vocabulary.infrastructure.persistance;
 import jakarta.persistence.*;
 
-import com.learndr.learndr.vocabulary.domain.entity.VocabWord;
+import com.learndr.learndr.vocabulary.domain.entity.Word;
 
 @Entity
 @Table(name = "words", schema="schema_vocabulary")

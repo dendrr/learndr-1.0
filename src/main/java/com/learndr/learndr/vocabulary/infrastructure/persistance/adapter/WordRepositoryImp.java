@@ -2,7 +2,7 @@ package com.learndr.learndr.vocabulary.infrastructure.persistance.adapter;
 
 import org.springframework.stereotype.Repository;
 
-import com.learndr.learndr.vocabulary.domain.entity.VocabWord;
+import com.learndr.learndr.vocabulary.domain.entity.Word;
 import com.learndr.learndr.vocabulary.domain.repository.WordRepository;
 import com.learndr.learndr.vocabulary.infrastructure.persistance.WordJpaEntity;
 import com.learndr.learndr.vocabulary.infrastructure.repository.JpaWordRepository;
@@ -17,7 +17,7 @@ public class WordRepositoryImp implements WordRepository {
   }
 
   @Override
-  public void save(VocabWord word) {
+  public void save(Word word) {
     WordJpaEntity entity = new WordJpaEntity(
       word.getWord(), 
       word.getMeaning(), 

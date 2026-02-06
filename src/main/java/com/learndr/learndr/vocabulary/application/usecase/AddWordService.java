@@ -3,7 +3,7 @@ package com.learndr.learndr.vocabulary.application.usecase;
 import org.springframework.stereotype.Service;
 import com.learndr.learndr.vocabulary.application.command.AddWordCommand;
 import com.learndr.learndr.vocabulary.domain.repository.WordRepository;
-import com.learndr.learndr.vocabulary.domain.entity.VocabWord;
+import com.learndr.learndr.vocabulary.domain.entity.Word;
 
 @Service
 public class AddWordService implements AddWordUseCase {
@@ -15,7 +15,7 @@ public class AddWordService implements AddWordUseCase {
 
   @Override
   public void execute(AddWordCommand cmd) {
-    VocabWord word = new VocabWord(
+    Word word = new Word(
         cmd.word(),
         cmd.meaning(),
         cmd.context());
