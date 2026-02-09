@@ -31,6 +31,21 @@ public class WordJpaEntity {
         this.meaning = meaning;
         this.context = context;
     }
+
+    public WordJpaEntity(Long id, String word, String meaning, String context) {
+        this.id = id;
+        this.word = word;
+        this.meaning = meaning;
+        this.context = context;
+    }
+
+    public WordJpaEntity(Long id, String word, String meaning, String context, int learn_progress_percentage) {
+        this.id = id;
+        this.word = word;
+        this.meaning = meaning;
+        this.context = context;
+        this.learn_progress_percentage = learn_progress_percentage;
+    }
     public WordJpaEntity(String word, String meaning, String context, int learn_progress_percentage) {
         this.word = word;
         this.meaning = meaning;
@@ -52,6 +67,10 @@ public class WordJpaEntity {
 
     public int getLearn_progress_percentage() {
         return learn_progress_percentage;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     
