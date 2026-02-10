@@ -28,7 +28,7 @@ public class VocabularyController {
   }
 
   @PostMapping("/api/words")
-  // public ResponseEntity<CreateWordResponseDTO> addWord(@Valid @RequestBody CreateWordRequestDTO req) {
+  // public ResponseEntity<CreateWordResponseDTO> addWord(@Valid @RequestBody CreateWordRequestDTO req) {z
   public ResponseEntity<Void> addWord(@Valid @RequestBody CreateWordRequestDTO req) {
     AddWordUseCase.execute(
         new AddWordCommand(req.word(), req.meaning(), req.context())
