@@ -1,7 +1,7 @@
 package com.learndr.learndr.vocabulary.application.usecase;
 
-import com.learndr.learndr.vocabulary.application.command.AddWordCommand;
+import com.learndr.learndr.vocabulary.application.command.*;
 
 public interface AddWordUseCase {
-  void execute(AddWordCommand cmd);
+  WordOutputCommand execute(AddWordCommand cmd);
 }

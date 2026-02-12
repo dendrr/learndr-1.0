@@ -2,7 +2,7 @@ package com.learndr.learndr.vocabulary.infrastructure.persistence;
 
 import jakarta.persistence.*;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 import org.hibernate.annotations.DynamicInsert;
 
@@ -20,27 +20,27 @@ public class WordJpaEntity {
 
   @Column(nullable = false)
   private String meaning;
-
+  
   @Column
   private String context;
-
+  
   @Column
-  private OffsetDateTime next_review_at;
-
-  @Column
-  private Integer learn_progress_percentage;
-
+  private Instant next_review_at;
+  
   @Column
   private Integer repetition_count;
-
-  @Column
-  private Boolean is_learned;
-
-  @Column
-  private Integer review_lapse_count;
-
+  
+  @Column(nullable = false)
+  private Integer learn_progress_percentage = 0;
+  
+  @Column(nullable = false)
+  private Boolean is_learned = false;
+  
   @Column(updatable = false, insertable = false)
-  private OffsetDateTime created_at;
+  private Instant created_at;
+  
+  @Column(nullable = false)
+  private Integer review_lapse_count;
 
   protected WordJpaEntity() {
   }
@@ -66,13 +66,6 @@ public class WordJpaEntity {
     this.learn_progress_percentage = learn_progress_percentage;
   }
 
-  public WordJpaEntity(String word, String meaning, String context, int learn_progress_percentage) {
-    this.word = word;
-    this.meaning = meaning;
-    this.context = context;
-    this.learn_progress_percentage = learn_progress_percentage;
-  }
-
   public String getWord() {
     return word;
   }
@@ -85,12 +78,19 @@ public class WordJpaEntity {
     return context;
   }
 
-  public int getLearn_progress_percentage() {
-    return learn_progress_percentage;
+  public int getLearnProgressPercentage() {
+    return learn_progress_percentage != null ? learn_progress_percentage : 0;
   }
 
   public Long getId() {
     return id_word;
   }
 
+  public boolean isLearned() {
+    return Boolean.TRUE.equals(is_learned);
+  }
+
+  public Instant getCreatedAt() {
+    return created_at;
+  }
 }

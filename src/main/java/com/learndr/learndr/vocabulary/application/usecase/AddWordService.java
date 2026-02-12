@@ -1,7 +1,8 @@
 package com.learndr.learndr.vocabulary.application.usecase;
 
 import org.springframework.stereotype.Service;
-import com.learndr.learndr.vocabulary.application.command.AddWordCommand;
+
+import com.learndr.learndr.vocabulary.application.command.*;
 import com.learndr.learndr.vocabulary.domain.repository.WordRepository;
 import com.learndr.learndr.vocabulary.domain.entity.Word;
 
@@ -14,11 +15,21 @@ public class AddWordService implements AddWordUseCase {
   }
 
   @Override
-  public void execute(AddWordCommand cmd) {
+  public WordOutputCommand execute(AddWordCommand cmd) {
     Word word = new Word(
         cmd.word(),
         cmd.meaning(),
         cmd.context());
-    wordRepository.save(word);
+
+    Word saved = wordRepository.save(word);
+    
+    return new WordOutputCommand(
+        saved.getId().value(),
+        saved.getWord(),
+        saved.getMeaning(),
+        saved.getContext(),
+        saved.getLearnProgressPercentage(),
+        saved.isLearned(),
+        saved.getCreatedAt());
   }
 }

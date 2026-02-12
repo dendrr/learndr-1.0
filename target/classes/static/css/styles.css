@@ -118,8 +118,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-content {
@@ -138,6 +143,7 @@ body {
     transform: translateY(-50px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -229,4 +235,27 @@ body {
 
 .btn-cancel:hover {
   background-color: #545b62;
+}
+
+.vocab-item {
+  padding: 1rem;
+  padding-left: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.vocab-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #c9c9c9;
+  transition: all 0.3s ease;
+}
+
+.word-text {
+  color: #1ed760;
+  font-size: 1.5rem;
 }

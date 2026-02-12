@@ -16,7 +16,10 @@
       <h1>Vocabulary</h1>
       <button class="btn-add-word" onclick="openModal()">+ Add New Word</button>
     </div>
-
+    <div id="vocabList" class="vocab-list">
+      
+    </div>
+    
     <!-- Modal Popup -->
     <div id="addWordModal" class="modal">
       <div class="modal-content">
@@ -44,6 +47,7 @@
   </div>
 
   <script>
+    // Open modal to Add word 
     function openModal() {
       document.getElementById("addWordModal").style.display = "block";
     }
@@ -76,6 +80,7 @@
 
       if (response.ok) {
         e.target.reset();
+        showCreatedWord( await response.json());
         closeModal();
       }
       else {
@@ -83,6 +88,34 @@
         console.error(error);
       }
     })
+
+    function showCreatedWord(created_word) {
+      const vocabList = document.getElementById("vocabList");
+      const wordItem = document.createElement("div");
+      wordItem.classList.add("vocab-item");
+
+      const wordText = document.createElement("h3");
+      wordText.textContent = created_word.word;
+      wordText.classList.add("word-text");
+      
+      const meaningText = document.createElement("p");
+      meaningText.textContent = created_word.meaning;
+      meaningText.classList.add("meaning-text");
+      
+      const contextText = document.createElement("p");
+      contextText.textContent = created_word.context;
+      contextText.classList.add("context-text");
+
+      const progressText = document.createElement("p");
+      progressText.textContent = `Progress: ${created_word.learnProgressPercentage}%`;
+      progressText.classList.add("progress-text");
+      
+      wordItem.appendChild(wordText);
+      wordItem.appendChild(meaningText);
+      wordItem.appendChild(contextText);
+      wordItem.appendChild(progressText);
+      vocabList.appendChild(wordItem);
+    }
   </script>
 </body>
 

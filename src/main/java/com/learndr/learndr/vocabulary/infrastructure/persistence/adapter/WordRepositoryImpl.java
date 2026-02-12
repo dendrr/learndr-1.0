@@ -18,14 +18,13 @@ public class WordRepositoryImpl implements WordRepository {
   }
 
   @Override
-  public WordId save(Word word) {
+  public Word save(Word word) {
     WordJpaEntity entity;
     if (word.getId() == null) {
       entity = new WordJpaEntity(
           word.getWord(),
           word.getMeaning(),
-          word.getContext(),
-          word.getLearnProgressPercentage());
+          word.getContext());
     } else {
       entity = new WordJpaEntity(
           word.getId().value(),
@@ -36,6 +35,6 @@ public class WordRepositoryImpl implements WordRepository {
     }
 
     WordJpaEntity saved = jpaWordRepository.save(entity);
-    return new WordId(saved.getId());
+    return new Word(new WordId(saved.getId()), saved.getWord(), saved.getMeaning(), saved.getContext(), saved.getLearnProgressPercentage(), saved.isLearned(), saved.getCreatedAt());
   }
 }

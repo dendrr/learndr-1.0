@@ -1,7 +1,8 @@
 package com.learndr.learndr.vocabulary.api.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 
-// import com.learndr.learndr.vocabulary.api.dto.CreateWordRequestDTO;
 import com.learndr.learndr.vocabulary.application.command.AddWordCommand;
+import com.learndr.learndr.vocabulary.application.command.WordOutputCommand;
 import com.learndr.learndr.vocabulary.application.usecase.AddWordUseCase;
-import com.learndr.learndr.vocabulary.api.dto.*;;
+import com.learndr.learndr.vocabulary.api.dto.*;
+import com.learndr.learndr.vocabulary.api.mapper.*;;
 
 @Controller
 public class VocabularyController {
@@ -21,6 +23,12 @@ public class VocabularyController {
     return "vocabulary/vocab-list";
   }
 
+  // // TODO: @GetMapping("/api/words") public ResponseEntity<
+  // @GetMapping("/api/words")
+  // public ResponseEntity<List<WordResponseDTO>> getWords() { 
+  
+  // }
+
   private final AddWordUseCase AddWordUseCase;
 
   public VocabularyController(AddWordUseCase AddWordUseCase) {
@@ -28,17 +36,17 @@ public class VocabularyController {
   }
 
   @PostMapping("/api/words")
-  // public ResponseEntity<CreateWordResponseDTO> addWord(@Valid @RequestBody CreateWordRequestDTO req) {z
-  public ResponseEntity<Void> addWord(@Valid @RequestBody CreateWordRequestDTO req) {
-    AddWordUseCase.execute(
-        new AddWordCommand(req.word(), req.meaning(), req.context())
-      );
+  public ResponseEntity<WordResponseDTO> addWord(@Valid @RequestBody CreateWordRequestDTO req) {
+      AddWordCommand command = new AddWordCommand(
+                req.word(),
+                req.meaning(),
+                req.context()
+        );
 
-    //   CreateWordResponseDTO created = 
+        WordOutputCommand output = AddWordUseCase.execute(command);
 
-    // return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
+        WordResponseDTO response = WordApiMapper.toWordResponseDTO(output);
+
+        return ResponseEntity.ok(response);
   }
 }
-
-// TODO: make controller return response to show added word immediately without page refresh

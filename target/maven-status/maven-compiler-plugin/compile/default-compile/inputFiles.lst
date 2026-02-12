@@ -1,2 +1,14 @@
 /home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/LearndrApplication.java
-/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/web/HomeController.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/app/web/HomeController.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/api/controller/VocabularyController.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/api/dto/CreateWordRequestDTO.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/api/dto/CreateWordResponseDTO.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/application/command/AddWordCommand.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/application/usecase/AddWordService.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/application/usecase/AddWordUseCase.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/domain/entity/Word.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/domain/entity/WordId.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/domain/repository/WordRepository.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/infrastructure/persistence/WordJpaEntity.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/infrastructure/persistence/adapter/WordRepositoryImpl.java
+/home/dendrr/Programming/learndr/learndr-1.0/src/main/java/com/learndr/learndr/vocabulary/infrastructure/repository/JpaWordRepository.java

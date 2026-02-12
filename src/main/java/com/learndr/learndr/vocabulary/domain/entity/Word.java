@@ -1,11 +1,15 @@
 package com.learndr.learndr.vocabulary.domain.entity;
 
+import java.time.Instant;
+
 public class Word {
   private final WordId id;
   private String word;
   private String meaning;
   private String context;
   private int learnProgressPercentage;
+  private boolean isLearned;
+  private Instant createdAt;
 
   public Word(String word, String meaning, String context) {
     this.id = null;
@@ -13,22 +17,25 @@ public class Word {
     this.meaning = meaning;
     this.context = context;
     this.learnProgressPercentage = 0;
+    this.isLearned = false;
+    this.createdAt = Instant.now();
   }
 
-  public Word(WordId id, String word, String meaning, String context) {
-    this.id = id;
-    this.word = word;
-    this.meaning = meaning;
-    this.context = context;
-    this.learnProgressPercentage = 0;
-  }
-
-  public Word(WordId id, String word, String meaning, String context, int learnProgressPercentage) {
+  public Word(
+      WordId id,
+      String word,
+      String meaning,
+      String context,
+      int learnProgressPercentage,
+      boolean isLearned,
+      Instant createdAt) {
     this.id = id;
     this.word = word;
     this.meaning = meaning;
     this.context = context;
     this.learnProgressPercentage = learnProgressPercentage;
+    this.isLearned = isLearned;
+    this.createdAt = createdAt;
   }
 
   public WordId getId() {
@@ -38,14 +45,24 @@ public class Word {
   public String getWord() {
     return word;
   }
+
   public String getMeaning() {
     return meaning;
   }
+
   public String getContext() {
     return context;
   }
 
   public int getLearnProgressPercentage() {
     return learnProgressPercentage;
+  }
+
+  public boolean isLearned() {
+    return isLearned;
+  }
+
+  public Instant getCreatedAt() {
+    return createdAt;
   }
 }
