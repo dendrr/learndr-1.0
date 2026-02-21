@@ -15,7 +15,8 @@ public final class WordSpecs {
     if (q == null || q.isBlank()) return null;
     String like = "%" + q.trim().toLowerCase() +"%";
     return (root, query, cb) -> cb.or(
-      cb.like(cb.lower(root()))
-    )
+      cb.like(cb.lower(root.get("word")), q),
+      cb.like(cb.lower(root.get("meaning")), q)
+    );  
   }
 }
