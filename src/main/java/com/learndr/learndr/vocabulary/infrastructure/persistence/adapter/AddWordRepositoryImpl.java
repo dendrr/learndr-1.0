@@ -6,15 +6,15 @@ import org.springframework.stereotype.Repository;
 import com.learndr.learndr.vocabulary.domain.entity.Word;
 import com.learndr.learndr.vocabulary.domain.entity.WordId;
 import com.learndr.learndr.vocabulary.domain.repository.WordRepository;
-import com.learndr.learndr.vocabulary.infrastructure.persistence.WordJpaEntity;
-import com.learndr.learndr.vocabulary.infrastructure.repository.JpaWordRepository;
+import com.learndr.learndr.vocabulary.infrastructure.persistence.entity.WordJpaEntity;
+import com.learndr.learndr.vocabulary.infrastructure.repository.SpringDataWordRepository;
 
 
 @Repository
 public class AddWordRepositoryImpl implements WordRepository {
-  private final JpaWordRepository jpaWordRepository;
+  private final SpringDataWordRepository jpaWordRepository;
 
-  public AddWordRepositoryImpl(JpaWordRepository jpaWordRepository) {
+  public AddWordRepositoryImpl(SpringDataWordRepository jpaWordRepository) {
     this.jpaWordRepository = jpaWordRepository;
   }
 

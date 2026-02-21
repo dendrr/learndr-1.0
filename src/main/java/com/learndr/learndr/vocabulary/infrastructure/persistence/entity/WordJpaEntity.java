@@ -1,4 +1,4 @@
-package com.learndr.learndr.vocabulary.infrastructure.persistence;
+package com.learndr.learndr.vocabulary.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 
