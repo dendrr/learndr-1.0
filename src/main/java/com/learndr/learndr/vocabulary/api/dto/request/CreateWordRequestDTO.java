@@ -1,4 +1,4 @@
-package com.learndr.learndr.vocabulary.api.dto;
+package com.learndr.learndr.vocabulary.api.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

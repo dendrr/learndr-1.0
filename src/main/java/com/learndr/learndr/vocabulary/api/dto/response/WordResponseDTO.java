@@ -1,8 +1,8 @@
-package com.learndr.learndr.vocabulary.application.command;
+package com.learndr.learndr.vocabulary.api.dto.response;
 
 import java.time.Instant;
 
-public record WordOutputCommand(
+public record WordResponseDTO(
     Long id,
     String word,
     String meaning,
@@ -10,7 +10,7 @@ public record WordOutputCommand(
     int learnProgressPercentage,
     boolean isLearned,
     Instant createdAt) {
-  public WordOutputCommand(
+  public WordResponseDTO(
       Long id,
       String word,
       String meaning,

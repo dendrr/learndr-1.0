@@ -1,8 +1,8 @@
-package com.learndr.learndr.vocabulary.api.dto;
+package com.learndr.learndr.vocabulary.application.dto.result;
 
 import java.time.Instant;
 
-public record WordResponseDTO(
+public record WordOutput(
     Long id,
     String word,
     String meaning,
@@ -10,7 +10,7 @@ public record WordResponseDTO(
     int learnProgressPercentage,
     boolean isLearned,
     Instant createdAt) {
-  public WordResponseDTO(
+  public WordOutput(
       Long id,
       String word,
       String meaning,

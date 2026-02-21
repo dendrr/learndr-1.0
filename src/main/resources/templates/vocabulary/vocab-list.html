@@ -17,9 +17,9 @@
       <button class="btn-add-word" onclick="openModal()">+ Add New Word</button>
     </div>
     <div id="vocabList" class="vocab-list">
-      
+
     </div>
-    
+
     <!-- Modal Popup -->
     <div id="addWordModal" class="modal">
       <div class="modal-content">
@@ -47,6 +47,36 @@
   </div>
 
   <script>
+    let page = 0;
+    
+    async function init(){
+      const data = await loadWordsPage();
+      render(data); 
+    }
+    window.onload = init;
+
+    function render(page) {
+      alert(console.log(page));
+    }
+
+    async function loadWordsPage(page = 0, size = 30) {
+      const params = new URLSearchParams({
+        page: page,
+        size: size,
+        sort: "createdAt, desc"
+      });
+
+      const res = await fetch(`api/words?${params.toString()}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    }
+
+    async function loadPage(page) {
+      page += 1;
+      const data = await loadWordsPage(page);
+      render(data);
+    }
+
     // Open modal to Add word 
     function openModal() {
       document.getElementById("addWordModal").style.display = "block";
@@ -80,7 +110,7 @@
 
       if (response.ok) {
         e.target.reset();
-        showCreatedWord( await response.json());
+        showCreatedWord(await response.json());
         closeModal();
       }
       else {
@@ -89,32 +119,18 @@
       }
     })
 
+    // render new added word
     function showCreatedWord(created_word) {
-      const vocabList = document.getElementById("vocabList");
-      const wordItem = document.createElement("div");
-      wordItem.classList.add("vocab-item");
-
-      const wordText = document.createElement("h3");
-      wordText.textContent = created_word.word;
-      wordText.classList.add("word-text");
-      
-      const meaningText = document.createElement("p");
-      meaningText.textContent = created_word.meaning;
-      meaningText.classList.add("meaning-text");
-      
-      const contextText = document.createElement("p");
-      contextText.textContent = created_word.context;
-      contextText.classList.add("context-text");
-
-      const progressText = document.createElement("p");
-      progressText.textContent = `Progress: ${created_word.learnProgressPercentage}%`;
-      progressText.classList.add("progress-text");
-      
-      wordItem.appendChild(wordText);
-      wordItem.appendChild(meaningText);
-      wordItem.appendChild(contextText);
-      wordItem.appendChild(progressText);
-      vocabList.appendChild(wordItem);
+      const list = document.getElementById("vocabList");
+      const item = document.createElement("div");
+      item.className = "vocab-item";
+      item.innerHTML = `
+      <h3 class="word-text">${created_word.word}</h3>
+      <p class="meaning-text">${created_word.meaning}</p>
+      <p class="context-text">${created_word.context || ""}</p>
+      <p class="progress-text">${created_word.learnProgressPercentage}</p>
+  `;
+      list.prepend(item);
     }
   </script>
 </body>
