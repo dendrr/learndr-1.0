@@ -3,7 +3,7 @@ package com.learndr.learndr.vocabulary.infrastructure.persistence.adapter;
 import com.learndr.learndr.vocabulary.application.dto.query.GetWordsPageQuery;
 import com.learndr.learndr.vocabulary.application.dto.result.WordsPageResponse;
 import com.learndr.learndr.vocabulary.application.port.out.WordQueryPort;
-import com.learndr.learndr.vocabulary.infrastructure.repository.JpaWordRepository;
+import com.learndr.learndr.vocabulary.infrastructure.repository.SpringDataWordRepository;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
