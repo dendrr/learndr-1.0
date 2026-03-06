@@ -3,7 +3,6 @@ package com.learndr.learndr.vocabulary.api.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 import com.learndr.learndr.vocabulary.application.dto.command.*;
-import com.learndr.learndr.vocabulary.application.dto.result.*;
 import com.learndr.learndr.vocabulary.application.dto.query.*;
 import com.learndr.learndr.vocabulary.application.port.in.*;
 import com.learndr.learndr.vocabulary.api.dto.request.*;
@@ -54,9 +52,7 @@ public class VocabularyController {
         req.meaning(),
         req.context());
 
-    WordOutput output = AddWordUseCase.execute(command);
-
-    WordResponseDTO response = WordApiMapper.toWordResponseDTO(output);
+    WordResponseDTO response = WordApiMapper.toWordResponseDTO(AddWordUseCase.execute(command));
 
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }

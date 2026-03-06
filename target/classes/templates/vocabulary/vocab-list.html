@@ -17,7 +17,12 @@
       <button class="btn-add-word" onclick="openModal()">+ Add New Word</button>
     </div>
     <div id="vocabList" class="vocab-list">
-
+      <div id="page-info"></div>
+      <div id="words-container"></div>
+      <div id="pagination">
+        <button id="prev-page">Previous</button>
+        <button id="next-page">Next</button>
+      </div>
     </div>
 
     <!-- Modal Popup -->
@@ -46,19 +51,18 @@
     </div>
   </div>
 
-  <script>
+  <script th:inline="javascript">
     let page = 0;
-    
-    async function init(){
+    const learnedIconUrl = "/img/learned.svg";
+    const notLearnedIconUrl = "/img/not_learned.svg";
+
+    async function init() {
       const data = await loadWordsPage();
-      render(data); 
+      render(data);
     }
     window.onload = init;
 
-    function render(page) {
-      alert(console.log(page));
-    }
-
+    // Initial fetch of user's words
     async function loadWordsPage(page = 0, size = 30) {
       const params = new URLSearchParams({
         page: page,
@@ -69,6 +73,75 @@
       const res = await fetch(`api/words?${params.toString()}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
+    }
+    
+    // Rendering all user's words on page load
+    function createWordCard(word) {
+      const word_div = document.createElement("div");
+      word_div.className = `word ${word.isLearned ? "learned" : "not-learned"}`;
+
+      const word_data = document.createElement("div");
+      word_data.className = "word-data";
+
+      const word_value = document.createElement("p");
+      word_value.className = "word_value";
+      word_value.textContent = word.word;
+
+      const word_meaning = document.createElement("p");
+      word_meaning.className = "word_meaning";
+      word_meaning.textContent = word.meaning;
+
+      word_data.append(word_value, word_meaning);
+      word_div.appendChild(word_data);
+
+      if (word.context && word.context.trim()) {
+        word_div.classList.add("has-context");
+
+        const context_div = document.createElement("div");
+        context_div.className = "word-context";
+
+        const context_value = document.createElement("p");
+        context_value.className = "word-context-value";
+        context_value.textContent = word.context;
+
+        context_div.appendChild(context_value);
+        word_div.appendChild(context_div);
+      }
+
+      const status_div = document.createElement("div");
+      status_div.className = "word-status";
+
+      const status_icon = document.createElement("img");
+      status_icon.className = "word-status-icon";
+      status_icon.src = word.isLearned ? learnedIconUrl : notLearnedIconUrl;
+      status_icon.alt = word.isLearned ? "Learned word" : "Word in progress";
+
+      status_div.appendChild(status_icon);
+      word_div.appendChild(status_div);
+
+      return word_div;
+    }
+
+    function render(page) {
+      const page_info = document.getElementById("page-info");
+      const words_container = document.getElementById("words-container");
+      const prev_button = document.getElementById("prev-page");
+      const next_button = document.getElementById("next-page");
+
+      words_container.innerHTML = "";
+
+      if (page.wordsDTO.length === 0) {
+        page_info.textContent = "No words yet";
+      } else {
+        page_info.textContent = `Page ${page.page + 1} of ${page.totalPages}`;
+      }
+
+      page.wordsDTO.forEach(word => {
+        words_container.appendChild(createWordCard(word));
+      });
+
+      prev_button.disabled = !page.hasPrevious;
+      next_button.disabled = !page.hasNext;
     }
 
     async function loadPage(page) {
@@ -121,16 +194,14 @@
 
     // render new added word
     function showCreatedWord(created_word) {
-      const list = document.getElementById("vocabList");
-      const item = document.createElement("div");
-      item.className = "vocab-item";
-      item.innerHTML = `
-      <h3 class="word-text">${created_word.word}</h3>
-      <p class="meaning-text">${created_word.meaning}</p>
-      <p class="context-text">${created_word.context || ""}</p>
-      <p class="progress-text">${created_word.learnProgressPercentage}</p>
-  `;
-      list.prepend(item);
+      const list = document.getElementById("words-container");
+      const page_info = document.getElementById("page-info");
+
+      list.prepend(createWordCard(created_word));
+
+      if (page_info.textContent === "No words yet") {
+        page_info.textContent = "Page 1 of 1";
+      }
     }
   </script>
 </body>
