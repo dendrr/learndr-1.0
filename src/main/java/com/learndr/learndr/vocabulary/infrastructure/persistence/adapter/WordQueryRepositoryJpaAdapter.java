@@ -39,7 +39,7 @@ public class WordQueryRepositoryJpaAdapter implements WordQueryPort {
         parseSort(wordPageRequest.sort()));
 
     return WordJpaMapper.toApplication(jpa.findAll(
-        buildSpecification(criteria),
+        buildSpecification(criteria), 
         pageable));
   }
 

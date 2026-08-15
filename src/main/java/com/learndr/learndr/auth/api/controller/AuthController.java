@@ -2,6 +2,7 @@ package com.learndr.learndr.auth.api.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.RequestEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,8 @@ public class AuthController {
   }
 
   @PostMapping("api/auth/addUser")
-  public ResponseEntity<HttpStatus> addUser(@Valid @RequestBody AddUserDto addUserRequest) {
+  public ResponseEntity<Integer> addUser(@Valid @RequestBody AddUserDto addUserRequest) {
     addUserUseCase.execute(AddUserRequestMapper.toAddUserCommand(addUserRequest));
+    return ResponseEntity.status(204).build();
   }
 }

@@ -27,4 +27,3 @@ public final class WordSpecs {
     };
   }
 }
-// TODO: Last build sepec for existByEmail func.
