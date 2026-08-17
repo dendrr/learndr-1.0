@@ -1,10 +1,14 @@
 package com.learndr.learndr.auth.api.dto.request;
 
+import org.hibernate.validator.constraints.Length;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public record AddUserDto(
-    String userName,
-    String email,
-    String preferredLocale,
-    String password,
-    long roleId) {
+        @NotBlank(message = "username must not me empty") @Length(max = 255) String userName,
+        @NotBlank(message = "Email must not me empty") @Email String email,
+        String preferredLocale,
+        String password) {
 
 }

@@ -9,7 +9,6 @@ public class UserJpaMapper {
         user.userName,
         user.email,
         user.preferredLocale.toString(),
-        user.passwordHash,
-        user.roleId.value());
+        user.passwordHash);
   }
 }

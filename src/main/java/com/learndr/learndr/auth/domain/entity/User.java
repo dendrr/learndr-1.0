@@ -6,18 +6,15 @@ public class User {
   public String email;
   public String passwordHash;
   public Locale preferredLocale;
-  public RoleId roleId;
 
   public User(
       String userName,
       String email,
       String passwordHash,
-      Locale preferredLocale,
-      RoleId roleId) {
+      Locale preferredLocale) {
     this.userName = userName;
     this.email = email;
     this.passwordHash = passwordHash;
     this.preferredLocale = preferredLocale;
-    this.roleId = roleId;
   }
 }

@@ -22,7 +22,7 @@ public class UserJpaEntity {
   private String preferredLocale;
 
   @Column(name = "fk_role_id", nullable = false)
-  private Long fkRoleId = 1L;
+  private int fkRoleId = 1;
 
   @Column(name = "password_hash", nullable = false)
   private String passwordHash;
@@ -40,8 +40,7 @@ public class UserJpaEntity {
       String userName,
       String email,
       String preferredLocale,
-      String passwordHash
-  ) {
+      String passwordHash) {
     this.userName = userName;
     this.email = email;
     this.preferredLocale = preferredLocale;
@@ -53,8 +52,7 @@ public class UserJpaEntity {
       String email,
       String preferredLocale,
       String passwordHash,
-      Long fkRoleId
-  ) {
+      int fkRoleId) {
     this(userName, email, preferredLocale, passwordHash);
     this.fkRoleId = fkRoleId;
   }
@@ -75,7 +73,7 @@ public class UserJpaEntity {
     return preferredLocale;
   }
 
-  public Long getFkRoleId() {
+  public int getFkRoleId() {
     return fkRoleId;
   }
 
